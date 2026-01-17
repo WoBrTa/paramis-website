@@ -3,65 +3,322 @@
   <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Paramis - AI Strategy Consulting</title>
+        <title>Paramis | AI Strategy Consulting</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
       <style>
-                * {
-                              margin: 0;
-                              padding: 0;
-                              box-sizing: border-box;
+                :root {
+                              --primary: #4A90A4;
+                              --primary-light: #7CB9E8;
+                              --primary-dark: #2C5F72;
+                              --dark: #0a0a0a;
+                              --light: #ffffff;
+                              --gray: #888;
                 }
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                html { scroll-behavior: smooth; }
                 body {
-                              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                              font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                              background: var(--dark);
+                              color: var(--light);
                               line-height: 1.6;
-                              color: #333;
+                              overflow-x: hidden;
                 }
+
+                /* Navigation */
+                nav {
+                              position: fixed;
+                              top: 0;
+                              width: 100%;
+                              padding: 1.5rem 5%;
+                              display: flex;
+                              justify-content: space-between;
+                              align-items: center;
+                              z-index: 1000;
+                              background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent);
+                }
+                .logo {
+                              display: flex;
+                              align-items: center;
+                              gap: 0.75rem;
+                              text-decoration: none;
+                              color: var(--light);
+                              font-weight: 600;
+                              font-size: 1.25rem;
+                }
+                .logo img { height: 40px; }
+                .nav-links {
+                              display: flex;
+                              gap: 2.5rem;
+                              list-style: none;
+                }
+                .nav-links a {
+                              color: var(--gray);
+                              text-decoration: none;
+                              font-size: 0.9rem;
+                              font-weight: 400;
+                              transition: color 0.3s;
+                              letter-spacing: 0.5px;
+                }
+                .nav-links a:hover { color: var(--light); }
+
+                /* Hero Section */
                 .hero {
-                              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                              color: white;
                               min-height: 100vh;
                               display: flex;
                               align-items: center;
                               justify-content: center;
+                              position: relative;
+                              padding: 0 5%;
+                }
+                .hero-content {
+                              max-width: 900px;
                               text-align: center;
-                              padding: 2rem;
+                              z-index: 2;
+                }
+                .hero-logo {
+                              width: 280px;
+                              margin-bottom: 2rem;
+                              animation: float 6s ease-in-out infinite;
+                              filter: drop-shadow(0 0 60px rgba(74, 144, 164, 0.3));
+                }
+                @keyframes float {
+                              0%, 100% { transform: translateY(0px); }
+                              50% { transform: translateY(-20px); }
                 }
                 .hero h1 {
-                              font-size: 3.5rem;
-                              margin-bottom: 1rem;
+                              font-size: clamp(2.5rem, 6vw, 4.5rem);
                               font-weight: 700;
+                              margin-bottom: 1.5rem;
+                              letter-spacing: -2px;
+                              background: linear-gradient(135deg, var(--light) 0%, var(--primary-light) 100%);
+                              -webkit-background-clip: text;
+                              -webkit-text-fill-color: transparent;
+                              background-clip: text;
                 }
                 .hero p {
-                              font-size: 1.5rem;
-                              margin-bottom: 2rem;
-                              opacity: 0.9;
+                              font-size: 1.25rem;
+                              color: var(--gray);
+                              max-width: 600px;
+                              margin: 0 auto 2.5rem;
+                              font-weight: 300;
                 }
-                .cta-button {
-                              background: white;
-                              color: #667eea;
-                              padding: 1rem 2.5rem;
-                              border-radius: 50px;
-                              text-decoration: none;
-                              font-weight: 600;
-                              font-size: 1.1rem;
-                              transition: transform 0.3s ease;
+                .cta-btn {
                               display: inline-block;
+                              padding: 1rem 2.5rem;
+                              background: transparent;
+                              border: 1px solid var(--primary);
+                              color: var(--light);
+                              text-decoration: none;
+                              font-size: 0.9rem;
+                              font-weight: 500;
+                              letter-spacing: 1px;
+                              transition: all 0.3s;
                 }
-                .cta-button:hover {
-                              transform: translateY(-3px);
+                .cta-btn:hover {
+                              background: var(--primary);
+                              box-shadow: 0 0 30px rgba(74, 144, 164, 0.4);
+                }
+
+                /* Animated background */
+                .hero::before {
+                              content: '';
+                              position: absolute;
+                              top: 0;
+                              left: 0;
+                              right: 0;
+                              bottom: 0;
+                              background: radial-gradient(ellipse at 50% 50%, rgba(74, 144, 164, 0.08) 0%, transparent 70%);
+                }
+
+                /* Sections */
+                section {
+                              padding: 8rem 5%;
+                              max-width: 1200px;
+                              margin: 0 auto;
+                }
+                .section-title {
+                              font-size: 0.75rem;
+                              text-transform: uppercase;
+                              letter-spacing: 3px;
+                              color: var(--primary);
+                              margin-bottom: 1rem;
+                }
+                h2 {
+                              font-size: clamp(2rem, 4vw, 3rem);
+                              font-weight: 600;
+                              margin-bottom: 2rem;
+                              letter-spacing: -1px;
+                }
+
+                /* Services */
+                .services-grid {
+                              display: grid;
+                              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                              gap: 2rem;
+                              margin-top: 3rem;
+                }
+                .service-card {
+                              padding: 2.5rem;
+                              background: rgba(255,255,255,0.02);
+                              border: 1px solid rgba(255,255,255,0.05);
+                              transition: all 0.3s;
+                }
+                .service-card:hover {
+                              background: rgba(255,255,255,0.04);
+                              border-color: var(--primary);
+                              transform: translateY(-5px);
+                }
+                .service-card h3 {
+                              font-size: 1.25rem;
+                              margin-bottom: 1rem;
+                              font-weight: 500;
+                }
+                .service-card p {
+                              color: var(--gray);
+                              font-size: 0.95rem;
+                              line-height: 1.7;
+                }
+
+                /* About */
+                .about-content {
+                              display: grid;
+                              grid-template-columns: 1fr 1fr;
+                              gap: 4rem;
+                              align-items: center;
+                }
+                .about-text p {
+                              color: var(--gray);
+                              margin-bottom: 1.5rem;
+                              font-size: 1.05rem;
+                }
+                .about-image {
+                              position: relative;
+                }
+                .about-image img {
+                              width: 100%;
+                              filter: grayscale(100%);
+                              opacity: 0.7;
+                }
+
+                /* Contact */
+                #contact {
+                              text-align: center;
+                }
+                #contact p {
+                              color: var(--gray);
+                              max-width: 500px;
+                              margin: 0 auto 2rem;
+                }
+                .contact-email {
+                              font-size: 1.5rem;
+                              color: var(--primary-light);
+                              text-decoration: none;
+                              font-weight: 300;
+                              transition: color 0.3s;
+                }
+                .contact-email:hover {
+                              color: var(--light);
+                }
+
+                /* Footer */
+                footer {
+                              padding: 3rem 5%;
+                              border-top: 1px solid rgba(255,255,255,0.05);
+                              display: flex;
+                              justify-content: space-between;
+                              align-items: center;
+                              font-size: 0.85rem;
+                              color: var(--gray);
+                }
+                .social-links a {
+                              color: var(--gray);
+                              text-decoration: none;
+                              margin-left: 1.5rem;
+                              transition: color 0.3s;
+                }
+                .social-links a:hover { color: var(--light); }
+
+                @media (max-width: 768px) {
+                              .nav-links { display: none; }
+                              .about-content { grid-template-columns: 1fr; }
+                              .hero-logo { width: 200px; }
                 }
             </style>
   </head>
   <body>
-        <section class="hero">
-                  <div>
-                                <h1>Paramis</h1>
-                              <p>AI Strategy Consulting for Enterprise Transformation</p>
-                              <a href="mailto:contact@paramis.ai" class="cta-button">Get Started</a>a>
-                  </div>
-        </section>section>
+        <nav>
+                  <a href="#" class="logo">
+                                <img src="peregrine-logo.png" alt="Paramis">
+                                <span>Paramis</span>
+                  </a>a>
+                <ul class="nav-links">
+                            <li><a href="#services">Services</a>a></li>
+                            <li><a href="#about">About</a>a></li>
+                            <li><a href="#contact">Contact</a>a></li>
+                </ul>ul>
+        </nav>
+  
+      <section class="hero">
+              <div class="hero-content">
+                          <img src="peregrine-logo.png" alt="Paramis" class="hero-logo">
+                          <h1>AI Strategy for the Enterprise</h1>
+                          <p>We help organizations design and deploy generative AI strategies that drive measurable transformation.</p>
+                          <a href="#contact" class="cta-btn">START A CONVERSATION</a>a>
+              </div>div>
+      </section>section>
+  
+      <section id="services">
+              <span class="section-title">What We Do</span>
+              <h2>Strategic AI Consulting</h2>
+              <div class="services-grid">
+                          <div class="service-card">
+                                          <h3>AI Journey Advisory</h3>
+                                          <p>We translate model releases, latency curves, and cost trends into actionable roadmaps your board and teams can follow with confidence.</p>
+                          </div>div>
+                          <div class="service-card">
+                                          <h3>Deployment & Embedding</h3>
+                                          <p>Strategy becomes results on the work floor. We embed AI into workflows, train teams on tools and agents, and track adoption metrics that matter.</p>
+                          </div>div>
+                          <div class="service-card">
+                                          <h3>Change Management</h3>
+                                          <p>AI deployment is not just technical change. We focus on the human side—ensuring adoption is both ethical and embraced across your organization.</p>
+                          </div>div>
+              </div>div>
+      </section>section>
+  
+      <section id="about">
+              <span class="section-title">About</span>
+              <h2>Woody Taylor</h2>
+              <div class="about-content">
+                          <div class="about-text">
+                                          <p>I understand organizational change and workforce optimization, along with the generative AI industry and how the tools work on the ground.</p>
+                                          <p>Since 2022, I have designed, built, and taught generative AI at an industrial, technical, and strategic level—serving businesses, international audiences, and enterprise communities.</p>
+                                          <p>I operate independently of vendor stacks, providing objective guidance that cuts through hype and distraction.</p>
+                          </div>div>
+                          <div class="about-image">
+                          </div>div>
+              </div>div>
+      </section>section>
+  
+      <section id="contact">
+              <span class="section-title">Get In Touch</span>
+              <h2>Let's Talk</h2>
+              <p>Ready to start your AI journey? Reach out and let's discuss how we can help transform your organization.</p>
+              <a href="mailto:woody@paramis.ai" class="contact-email">woody@paramis.ai</a>a>
+      </section>section>
+  
+      <footer>
+                <span>&copy; 2025 Paramis LLC. All rights reserved.</span>
+                <div class="social-links">
+                              <a href="https://www.linkedin.com/in/woodytaylor/" target="_blank">LinkedIn</a>a>
+                </div>div>
+      </footer>
   </body>
-</html>html></p></h1>
-                  </div>
+</html>html>
+      </footer></p></p></h1></li></li></span>
+        </nav>
   </body>
       </style></title>
   </head>
