@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ===========================================
-       PARAMIS — MOTION DESIGN ALTERNATIVE
+       PARAMIS — MOTION DESIGN ALTERNATIVE
        Preserving exact brand: blues, blacks, gold
     =========================================== */
     :root {
@@ -91,7 +91,7 @@
     }
 
     /* ===========================================
-       NAVIGATION — same as current site
+       NAVIGATION — same as current site
     =========================================== */
     nav {
       position: fixed;
@@ -175,7 +175,7 @@
     .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
     /* ===========================================
-       HERO — WITH BIRD FILL ANIMATION
+       HERO — WITH BIRD FILL ANIMATION
     =========================================== */
     .hero {
       min-height: 100vh;
@@ -187,7 +187,7 @@
       overflow: hidden;
     }
 
-    /* Subtle animated gradient background — full page */
+    /* Subtle animated gradient background — full page */
     body::after {
       content: '';
       position: fixed;
@@ -205,7 +205,7 @@
       50% { opacity: 0.7; }
     }
 
-    /* Particle canvas — full page background */
+    /* Particle canvas — full page background */
     #hero-canvas {
       position: fixed;
       inset: 0;
@@ -322,7 +322,7 @@
 
 
     /* ===========================================
-       SECTIONS — scroll reveal system
+       SECTIONS — scroll reveal system
     =========================================== */
     section {
       padding: 8rem 5%;
@@ -395,7 +395,7 @@
     }
 
     /* ===========================================
-       SERVICES — with 3D tilt cards
+       SERVICES — with 3D tilt cards
     =========================================== */
     .services-grid {
       display: grid;
@@ -474,7 +474,7 @@
     }
 
     /* ===========================================
-       ABOUT — with parallax image
+       ABOUT — with parallax image
     =========================================== */
     #about { padding: 10rem 5%; }
     .about-content {
@@ -603,7 +603,7 @@
     }
 
     /* ===========================================
-       PAGE LOADER — bird outline draws in
+       PAGE LOADER — bird outline draws in
     =========================================== */
     .page-loader {
       position: fixed;
@@ -704,14 +704,14 @@
     </ul>
   </nav>
 
-  <!-- Particle background — full page -->
+  <!-- Particle background — full page -->
   <canvas id="hero-canvas"></canvas>
 
   <!-- ========== HERO ========== -->
   <section class="hero">
     <div class="hero-content">
 
-      <!-- THE BIRD — floating peregrine logo -->
+      <!-- THE BIRD — floating peregrine logo -->
       <img src="peregrine-logo.png" alt="Paramis" class="hero-logo">
 
       <h1>
@@ -785,7 +785,7 @@
           <path d="M32 4 L28 10 M32 4 L36 10" stroke-width="2"/>
         </svg>
         <h3>Change Management</h3>
-        <p>AI deployment is not just technical change. I focus on the human side—ensuring adoption is both ethical and embraced across your organization.</p>
+        <p>AI deployment is not just technical change. I focus on the human side—ensuring adoption is both ethical and embraced across your organization.</p>
       </div>
     </div>
   </section>
@@ -943,7 +943,7 @@
     });
 
     // ==========================================
-    // SCROLL REVEAL — sections animate in
+    // SCROLL REVEAL — sections animate in
     // ==========================================
     const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
     const revealObserver = new IntersectionObserver((entries) => {
@@ -957,7 +957,7 @@
     revealEls.forEach(el => revealObserver.observe(el));
 
     // ==========================================
-    // SERVICE CARD — spotlight + 3D tilt
+    // SERVICE CARD — spotlight + 3D tilt
     // ==========================================
     document.querySelectorAll('.service-card').forEach(card => {
       const spotlight = card.querySelector('.spotlight');
@@ -986,7 +986,7 @@
     });
 
     // ==========================================
-    // HERO CANVAS — flowing particles (same as current site)
+    // HERO CANVAS — flowing particles (same as current site)
     // ==========================================
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d');
