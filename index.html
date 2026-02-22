@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ===========================================
-       PARAMIS â MOTION DESIGN ALTERNATIVE
+       PARAMIS — MOTION DESIGN ALTERNATIVE
        Preserving exact brand: blues, blacks, gold
     =========================================== */
     :root {
@@ -91,7 +91,7 @@
     }
 
     /* ===========================================
-       NAVIGATION â same as current site
+       NAVIGATION — same as current site
     =========================================== */
     nav {
       position: fixed;
@@ -175,7 +175,7 @@
     .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
     /* ===========================================
-       HERO â WITH BIRD FILL ANIMATION
+       HERO — WITH BIRD FILL ANIMATION
     =========================================== */
     .hero {
       min-height: 100vh;
@@ -187,7 +187,7 @@
       overflow: hidden;
     }
 
-    /* Subtle animated gradient background â full page */
+    /* Subtle animated gradient background — full page */
     body::after {
       content: '';
       position: fixed;
@@ -205,7 +205,7 @@
       50% { opacity: 0.7; }
     }
 
-    /* Particle canvas â full page background */
+    /* Particle canvas — full page background */
     #hero-canvas {
       position: fixed;
       inset: 0;
@@ -322,7 +322,7 @@
 
 
     /* ===========================================
-       SECTIONS â scroll reveal system
+       SECTIONS — scroll reveal system
     =========================================== */
     section {
       padding: 8rem 5%;
@@ -352,6 +352,12 @@
       margin-bottom: 2rem;
       letter-spacing: -1px;
       line-height: 1.2;
+      background: linear-gradient(135deg, var(--light) 0%, var(--primary-light) 50%, var(--accent) 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 8s ease infinite;
     }
 
     /* Scroll reveal base */
@@ -389,7 +395,7 @@
     }
 
     /* ===========================================
-       SERVICES â with 3D tilt cards
+       SERVICES — with 3D tilt cards
     =========================================== */
     .services-grid {
       display: grid;
@@ -468,7 +474,7 @@
     }
 
     /* ===========================================
-       ABOUT â with parallax image
+       ABOUT — with parallax image
     =========================================== */
     #about { padding: 10rem 5%; }
     .about-content {
@@ -597,7 +603,7 @@
     }
 
     /* ===========================================
-       PAGE LOADER â bird outline draws in
+       PAGE LOADER — bird outline draws in
     =========================================== */
     .page-loader {
       position: fixed;
@@ -698,14 +704,14 @@
     </ul>
   </nav>
 
-  <!-- Particle background â full page -->
+  <!-- Particle background — full page -->
   <canvas id="hero-canvas"></canvas>
 
   <!-- ========== HERO ========== -->
   <section class="hero">
     <div class="hero-content">
 
-      <!-- THE BIRD â floating peregrine logo -->
+      <!-- THE BIRD — floating peregrine logo -->
       <img src="peregrine-logo.png" alt="Paramis" class="hero-logo">
 
       <h1>
@@ -725,7 +731,7 @@
   <!-- ========== SERVICES ========== -->
   <section id="services">
     <span class="section-title reveal">Services</span>
-    <h2 class="reveal reveal-delay-1">Strategic AI Consulting</h2>
+    <h2 class="reveal reveal-delay-1">Advisory and Deployment</h2>
     <div class="services-grid">
       <div class="service-card reveal reveal-delay-1">
         <div class="spotlight"></div>
@@ -779,7 +785,7 @@
           <path d="M32 4 L28 10 M32 4 L36 10" stroke-width="2"/>
         </svg>
         <h3>Change Management</h3>
-        <p>AI deployment is not just technical change. I focus on the human sideâensuring adoption is both ethical and embraced across your organization.</p>
+        <p>AI deployment is not just technical change. I focus on the human side—ensuring adoption is both ethical and embraced across your organization.</p>
       </div>
     </div>
   </section>
@@ -834,9 +840,18 @@
 
   <script>
     // ==========================================
+    // FORCE SCROLL TO TOP ON LOAD
+    // ==========================================
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    // ==========================================
     // PAGE LOADER
     // ==========================================
     window.addEventListener('load', () => {
+      window.scrollTo(0, 0);
       setTimeout(() => {
         document.querySelector('.page-loader').classList.add('hidden');
         startHeroAnimation();
@@ -928,7 +943,7 @@
     });
 
     // ==========================================
-    // SCROLL REVEAL â sections animate in
+    // SCROLL REVEAL — sections animate in
     // ==========================================
     const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
     const revealObserver = new IntersectionObserver((entries) => {
@@ -942,7 +957,7 @@
     revealEls.forEach(el => revealObserver.observe(el));
 
     // ==========================================
-    // SERVICE CARD â spotlight + 3D tilt
+    // SERVICE CARD — spotlight + 3D tilt
     // ==========================================
     document.querySelectorAll('.service-card').forEach(card => {
       const spotlight = card.querySelector('.spotlight');
@@ -971,7 +986,7 @@
     });
 
     // ==========================================
-    // HERO CANVAS â flowing particles (same as current site)
+    // HERO CANVAS — flowing particles (same as current site)
     // ==========================================
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d');
