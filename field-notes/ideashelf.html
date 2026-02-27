@@ -762,6 +762,124 @@
       .entry-meta { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
       .tools-grid { grid-template-columns: 1fr; }
     }
+
+    /* ===========================================
+       CONTACT POPUP
+    =========================================== */
+    .contact-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10003;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-overlay.open {
+      display: flex;
+    }
+    .contact-popup {
+      background: var(--dark-elevated);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+    .contact-popup h3 {
+      font-size: var(--text-xl);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--light), var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .contact-popup .popup-subtitle {
+      color: var(--gray);
+      font-size: var(--text-sm);
+      margin-bottom: 1.5rem;
+    }
+    .contact-popup .email-display {
+      font-size: var(--text-lg);
+      font-weight: 500;
+      color: var(--primary-light);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
+    }
+    .popup-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .popup-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.5rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      color: var(--light);
+      font-family: inherit;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      background: transparent;
+      letter-spacing: 0.5px;
+    }
+    .popup-btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    .popup-btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 0 20px var(--glow-primary);
+    }
+    .popup-btn:not(.popup-btn-primary):hover {
+      border-color: var(--primary);
+      background: rgba(74, 144, 164, 0.1);
+    }
+    .popup-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .popup-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+      padding: 0.25rem;
+      transition: color 0.3s;
+    }
+    .popup-close:hover { color: var(--light); }
+    .popup-close svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .copied-toast {
+      color: var(--accent);
+      font-size: var(--text-sm);
+      margin-top: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .copied-toast.show { opacity: 1; }
   </style>
 </head>
 <body>
@@ -1005,7 +1123,7 @@
     <div class="cta-section reveal">
       <h3>This is what AI-augmented workflow looks like in practice.</h3>
       <p>If you want to explore what it could look like for your team, let's talk.</p>
-      <a href="mailto:woody@paramis.ai" class="cta-btn">Get in Touch <span>&rarr;</span></a>
+      <a href="mailto:contact@paramis.ai" class="cta-btn contact-btn">Get in Touch <span>&rarr;</span></a>
     </div>
 
     <!-- ========== GLOSSARY ========== -->
@@ -1125,6 +1243,64 @@
         document.getElementById('lightbox').classList.remove('active');
         document.body.style.overflow = '';
       }
+    });
+  </script>
+
+  <!-- Contact Popup -->
+  <div class="contact-overlay" id="contactOverlay">
+    <div class="contact-popup" style="position:relative;">
+      <button class="popup-close" id="popupClose">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <h3>Get in Touch</h3>
+      <p class="popup-subtitle">Reach out to start a conversation</p>
+      <div class="email-display">contact@paramis.ai</div>
+      <div class="popup-actions">
+        <a href="mailto:contact@paramis.ai?subject=Website%20Inquiry" class="popup-btn popup-btn-primary">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6 L12 13 L22 6"/></svg>
+          Open Email Client
+        </a>
+        <button class="popup-btn" id="copyEmailBtn">
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy Email Address
+        </button>
+      </div>
+      <div class="copied-toast" id="copiedToast">Copied to clipboard!</div>
+    </div>
+  </div>
+
+  <script>
+    // Contact Popup
+    const contactOverlay = document.getElementById('contactOverlay');
+    const popupClose = document.getElementById('popupClose');
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    const copiedToast = document.getElementById('copiedToast');
+
+    function openContactPopup() {
+      contactOverlay.classList.add('open');
+    }
+    function closeContactPopup() {
+      contactOverlay.classList.remove('open');
+    }
+
+    document.querySelector('.contact-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      openContactPopup();
+    });
+
+    popupClose.addEventListener('click', closeContactPopup);
+    contactOverlay.addEventListener('click', (e) => {
+      if (e.target === contactOverlay) closeContactPopup();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeContactPopup();
+    });
+
+    copyEmailBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('contact@paramis.ai').then(() => {
+        copiedToast.classList.add('show');
+        setTimeout(() => copiedToast.classList.remove('show'), 2000);
+      });
     });
   </script>
 
