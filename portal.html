@@ -164,7 +164,7 @@
       gap: 5px;
       cursor: pointer;
       padding: 10px;
-      z-index: 1001;
+      z-index: 10001;
     }
     .mobile-menu-btn span {
       width: 24px; height: 2px;
@@ -395,7 +395,9 @@
     @media (max-width: 768px) {
       .mobile-menu-btn { display: flex; }
       .nav-links {
-        position: fixed; inset: 0;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
         background: rgba(10, 10, 10, 0.98);
         flex-direction: column;
         justify-content: center;
@@ -403,9 +405,16 @@
         gap: 3rem;
         opacity: 0; visibility: hidden;
         transition: all 0.4s ease;
+        z-index: 10000;
       }
       .nav-links.active { opacity: 1; visibility: visible; }
       .nav-links a { font-size: 1.2rem; }
+      nav:has(.nav-links.active) {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: transparent;
+        border-bottom: none;
+      }
       .portal-card { padding: 2rem 1.5rem; }
       .cursor-glow { display: none; }
     }
