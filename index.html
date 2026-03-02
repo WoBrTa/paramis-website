@@ -4,14 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paramis | AI Strategy Consulting</title>
+  <meta name="description" content="Every knowledge worker will manage AI agents. I prepare companies and communities for what will change.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ===========================================
-       PARAMIS — MOTION DESIGN ALTERNATIVE
-       Preserving exact brand: blues, blacks, gold
+       PARAMIS — EXTRAORDINARY REDESIGN
+       Thesis-driven. Editorial. Cinematic.
+       Brand: #0a0a0a, #4A90A4, #7CB9E8, #F5A623
+       Fonts: Space Grotesk (brand), Instrument Serif (accent)
     =========================================== */
+
+    /* --- 1. CSS VARIABLES --- */
     :root {
       --primary: #4A90A4;
       --primary-light: #7CB9E8;
@@ -19,13 +24,17 @@
       --accent: #F5A623;
       --dark: #0a0a0a;
       --dark-elevated: #111111;
+      --dark-surface: #141414;
       --light: #ffffff;
       --gray: #a0a0a0;
-      --gray-dim: #666;
+      --gray-dim: #555;
       --glass: rgba(255, 255, 255, 0.03);
       --glass-border: rgba(255, 255, 255, 0.08);
       --glow-primary: rgba(74, 144, 164, 0.4);
       --glow-accent: rgba(245, 166, 35, 0.3);
+
+      --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
 
       --text-xs: 0.75rem;
       --text-sm: 0.875rem;
@@ -35,38 +44,85 @@
       --text-2xl: 2rem;
       --text-3xl: 2.5rem;
       --text-4xl: 3.5rem;
+      --text-hero: clamp(2.8rem, 6.5vw, 5.5rem);
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    /* --- 2. RESET & BASE --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: var(--font-sans);
       background: var(--dark);
       color: var(--light);
       line-height: 1.6;
       overflow-x: hidden;
       cursor: default;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Noise texture */
+    /* --- 3. BACKGROUND EFFECTS --- */
+
+    /* Noise texture overlay */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      opacity: 0.015;
+      opacity: 0.018;
       z-index: 10000;
       pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     }
 
-    /* ===========================================
-       SCROLL PROGRESS BAR
-    =========================================== */
+    /* Animated gradient orbs — atmospheric depth */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: -1;
+      will-change: transform;
+    }
+    .orb-1 {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(74, 144, 164, 0.14) 0%, transparent 70%);
+      top: -15%; left: -10%;
+      animation: orbDrift1 25s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(245, 166, 35, 0.08) 0%, transparent 70%);
+      top: 40%; right: -8%;
+      animation: orbDrift2 30s ease-in-out infinite alternate;
+    }
+    .orb-3 {
+      width: 550px; height: 550px;
+      background: radial-gradient(circle, rgba(124, 185, 232, 0.06) 0%, transparent 70%);
+      bottom: -10%; left: 25%;
+      animation: orbDrift3 28s ease-in-out infinite alternate;
+    }
+    @keyframes orbDrift1 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(100px, 150px) scale(1.1); }
+    }
+    @keyframes orbDrift2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-80px, -100px) scale(0.9); }
+    }
+    @keyframes orbDrift3 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(60px, -80px) scale(1.05); }
+    }
+
+    /* --- 4. UTILITIES --- */
+
+    /* Scroll progress bar */
     .scroll-progress {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--primary), var(--accent));
       z-index: 10002;
@@ -75,14 +131,11 @@
       will-change: transform;
     }
 
-    /* ===========================================
-       CURSOR GLOW (enhanced)
-    =========================================== */
+    /* Cursor glow */
     .cursor-glow {
       position: fixed;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(74, 144, 164, 0.12) 0%, transparent 70%);
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(74, 144, 164, 0.10) 0%, transparent 70%);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
@@ -90,27 +143,67 @@
       transition: opacity 0.3s ease;
     }
 
-    /* ===========================================
-       NAVIGATION — same as current site
-    =========================================== */
+    /* Page loader */
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      background: var(--dark);
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .page-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader-mark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .loader-mark img {
+      width: 64px;
+      filter: brightness(0) invert(1) opacity(0.5);
+      animation: loaderPulse 1.8s ease-in-out infinite;
+    }
+    .loader-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: loaderDraw 1s ease-out 0.3s forwards;
+    }
+    @keyframes loaderPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
+    @keyframes loaderDraw {
+      to { transform: scaleX(1); }
+    }
+
+    /* --- 5. NAVIGATION --- */
     nav {
       position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 1rem 5%;
+      top: 0; width: 100%;
+      padding: 1.25rem 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
-      background: rgba(10, 10, 10, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
+      background: rgba(10, 10, 10, 0.6);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid transparent;
       transition: all 0.4s ease;
     }
     nav.scrolled {
-      padding: 0.75rem 5%;
+      padding: 0.85rem 5%;
       background: rgba(10, 10, 10, 0.9);
+      border-bottom-color: var(--glass-border);
     }
     .logo {
       display: flex;
@@ -151,12 +244,11 @@
       bottom: 0; left: 0;
       width: 0; height: 1px;
       background: linear-gradient(90deg, var(--primary), var(--accent));
-      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: width 0.4s var(--ease-out-expo);
     }
     .nav-links a:hover { color: var(--light); }
     .nav-links a:hover::after { width: 100%; }
 
-    /* Mobile hamburger */
     .mobile-menu-btn {
       display: none;
       flex-direction: column;
@@ -174,108 +266,88 @@
     .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
     .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-    /* ===========================================
-       HERO — WITH BIRD FILL ANIMATION
-    =========================================== */
+    /* --- 6. HERO --- */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      padding: 0 5%;
-      overflow: hidden;
+      padding: 6rem 5% 4rem;
     }
-
-    /* Subtle animated gradient background — full page */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 80%, rgba(74, 144, 164, 0.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(245, 166, 35, 0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(74, 144, 164, 0.05) 0%, transparent 70%);
-      animation: gradientPulse 8s ease-in-out infinite;
-      pointer-events: none;
-      z-index: -1;
-    }
-    @keyframes gradientPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-
-    /* Particle canvas — full page background */
-    #hero-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.4;
-      z-index: 0;
-      pointer-events: none;
-    }
-
     .hero-content {
-      max-width: 900px;
+      max-width: 960px;
       text-align: center;
       z-index: 2;
-      padding: 2rem 0;
     }
 
-    /* ===== THE BIRD: Simple floating logo ===== */
-    .hero-logo {
-      width: 480px;
-      max-width: 85vw;
-      margin: 3rem auto -2rem;
-      display: block;
-      filter: drop-shadow(0 0 60px var(--glow-primary));
-      animation: float 6s ease-in-out infinite;
+    /* Small brand badge above headline */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-out-expo) 0.6s forwards;
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
+    .hero-badge img {
+      height: 28px;
+      opacity: 0.7;
+    }
+    .hero-badge span {
+      font-size: var(--text-xs);
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gray-dim);
     }
 
-    /* Animated headline with word reveals */
+    /* Headline: line-by-line reveal */
     .hero h1 {
-      font-size: var(--text-4xl);
+      font-size: var(--text-hero);
       font-weight: 700;
-      margin-bottom: 1.5rem;
-      letter-spacing: -2px;
+      line-height: 1.06;
+      letter-spacing: -3px;
+      margin-bottom: 2rem;
+    }
+    .hero h1 .line {
+      display: block;
       overflow: hidden;
     }
-    .hero h1 .word {
-      display: inline-block;
-      overflow: hidden;
-      vertical-align: top;
-      margin-right: 0.2em;
+    .hero h1 .line-inner {
+      display: block;
+      transform: translateY(115%);
     }
-    .hero h1 .word-inner {
-      display: inline-block;
-      transform: translateY(110%);
-      background: linear-gradient(135deg, var(--light) 0%, var(--primary-light) 50%, var(--accent) 100%);
-      background-size: 200% 200%;
+    .hero h1 .line-inner.revealed {
+      transform: translateY(0);
+      transition: transform 1s var(--ease-out-expo);
+    }
+
+    /* Gradient accent on key phrase */
+    .hero h1 .accent {
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: gradientShift 8s ease infinite;
-    }
-    @keyframes gradientShift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
     }
 
-    .hero p {
-      font-size: var(--text-lg);
+    /* Serif subtitle — the italic creates editorial contrast */
+    .hero-sub {
+      font-family: var(--font-serif);
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
       color: var(--gray);
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
       font-weight: 400;
+      font-style: italic;
+      max-width: 520px;
+      margin: 0 auto 3rem;
+      line-height: 1.5;
       opacity: 0;
-      transform: translateY(20px);
+    }
+    .hero-sub.revealed {
+      animation: fadeInUp 0.9s var(--ease-out-expo) forwards;
     }
 
+    /* CTA button */
     .cta-btn {
       display: inline-flex;
       align-items: center;
@@ -285,18 +357,21 @@
       border: 1px solid var(--primary);
       color: var(--light);
       text-decoration: none;
+      font-family: var(--font-sans);
       font-size: var(--text-sm);
       font-weight: 500;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       position: relative;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.5s var(--ease-out-expo);
       opacity: 0;
-      transform: translateY(20px);
+    }
+    .cta-btn.revealed {
+      animation: fadeInUp 0.8s var(--ease-out-expo) forwards;
     }
     .cta-btn .arrow {
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s var(--ease-out-expo);
     }
     .cta-btn::before {
       content: '';
@@ -315,22 +390,156 @@
     .cta-btn:hover .arrow { transform: translateX(4px); }
     .cta-btn:hover::before { left: 100%; }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-out-expo) 2.2s forwards;
+    }
+    .scroll-hint span {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--gray-dim);
+    }
+    .scroll-hint .scroll-line {
+      width: 1px;
+      height: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-hint .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--gray-dim));
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+    @keyframes scrollDrop {
+      0% { top: -100%; }
+      50% { top: 0; }
+      100% { top: 100%; }
     }
 
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
+    /* --- 7. BELIEFS --- */
+    .beliefs {
+      padding: 2rem 5% 0;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .belief {
+      padding: 7rem 0;
+      border-top: 1px solid var(--glass-border);
+      position: relative;
+    }
+    .belief:last-child {
+      border-bottom: 1px solid var(--glass-border);
+    }
 
-    /* ===========================================
-       SECTIONS — scroll reveal system
-    =========================================== */
-    section {
+    /* Large background number */
+    .belief-num {
+      font-size: clamp(5rem, 10vw, 9rem);
+      font-weight: 200;
+      color: var(--accent);
+      opacity: 0.06;
+      position: absolute;
+      top: 3rem;
+      right: 0;
+      line-height: 1;
+      letter-spacing: -4px;
+      user-select: none;
+    }
+
+    .belief-label {
+      font-size: var(--text-xs);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .belief-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* Serif heading for editorial contrast */
+    .belief h3 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.65rem, 3.5vw, 2.4rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+      color: var(--light);
+    }
+    .belief p {
+      color: var(--gray);
+      font-size: var(--text-base);
+      line-height: 1.9;
+      max-width: 620px;
+      font-weight: 400;
+    }
+
+    /* --- 8. EVIDENCE --- */
+    .evidence {
+      padding: 6rem 5%;
+      margin: 4rem 0;
+      background: var(--dark-surface);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .evidence-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem 2rem;
+    }
+    .evidence-item {
+      text-align: center;
+    }
+    .evidence-num {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.75rem;
+      letter-spacing: -2px;
+    }
+    .evidence-label {
+      font-size: var(--text-sm);
+      color: var(--gray);
+      letter-spacing: 0.5px;
+      font-weight: 400;
+    }
+
+    /* --- 9. SERVICES --- */
+    .services-section {
       padding: 8rem 5%;
       max-width: 1200px;
       margin: 0 auto;
-      position: relative;
     }
-    .section-title {
+    .section-label {
       font-size: var(--text-xs);
       font-weight: 500;
       text-transform: uppercase;
@@ -341,15 +550,16 @@
       align-items: center;
       gap: 1rem;
     }
-    .section-title::before {
+    .section-label::before {
       content: '';
-      width: 30px; height: 1px;
+      width: 30px;
+      height: 1px;
       background: var(--accent);
     }
-    h2 {
+    .section-heading {
       font-size: var(--text-2xl);
       font-weight: 600;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
       letter-spacing: -1px;
       line-height: 1.2;
       background: linear-gradient(135deg, var(--light) 0%, var(--primary-light) 50%, var(--accent) 100%);
@@ -359,58 +569,24 @@
       background-clip: text;
       animation: gradientShift 8s ease infinite;
     }
-
-    /* Scroll reveal base */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-
-    /* Reveal from left/right for variety */
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-50px);
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(50px);
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-left.active, .reveal-right.active {
-      opacity: 1;
-      transform: translateX(0);
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
-    /* ===========================================
-       SERVICES — with 3D tilt cards
-    =========================================== */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
-      margin-top: 3rem;
     }
     .service-card {
-      padding: 2.5rem 2.5rem 2rem;
+      padding: 2.5rem 2rem 2rem;
       background: var(--glass);
       border: 1px solid var(--glass-border);
       border-radius: 2px;
       position: relative;
       overflow: visible;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.5s var(--ease-out-expo);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -426,7 +602,7 @@
       background: linear-gradient(90deg, var(--primary), var(--accent));
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.5s var(--ease-out-expo);
     }
     .service-card:hover::before { transform: scaleX(1); }
     .service-card:hover {
@@ -434,12 +610,9 @@
       background: rgba(255, 255, 255, 0.05);
       border-color: rgba(74, 144, 164, 0.3);
       border-bottom-color: transparent;
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.3),
-        0 0 60px rgba(74, 144, 164, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 60px rgba(74, 144, 164, 0.08);
     }
 
-    /* Spotlight effect on card hover */
     .service-card .spotlight {
       position: absolute;
       inset: 0;
@@ -450,17 +623,17 @@
     .service-card:hover .spotlight { opacity: 1; }
 
     .service-icon {
-      width: 64px; height: 64px;
-      margin-bottom: 1.5rem;
+      width: 56px; height: 56px;
+      margin-bottom: 1.25rem;
       stroke: var(--primary);
       stroke-width: 1.2;
       fill: none;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s var(--ease-out-expo);
     }
     .service-card:hover .service-icon {
       stroke: var(--accent);
       transform: scale(1.1);
-      filter: drop-shadow(0 0 20px var(--glow-accent));
+      filter: drop-shadow(0 0 16px var(--glow-accent));
     }
     .service-card h3 {
       font-size: var(--text-xl);
@@ -474,8 +647,9 @@
       line-height: 1.6;
       text-align: center;
       margin: 0;
+      color: var(--gray);
     }
-    .service-card p {
+    .service-card p.card-detail {
       color: var(--gray);
       font-size: var(--text-base);
       line-height: 1.8;
@@ -483,57 +657,56 @@
       font-weight: 400;
     }
 
-    /* --- Expandable card overlay --- */
+    /* Expandable detail panel */
     .card-expand {
       position: absolute;
       top: 100%;
-      left: -1px;
-      right: -1px;
+      left: -1px; right: -1px;
       background: #141414;
       border: 1px solid rgba(74, 144, 164, 0.3);
       border-top: none;
       border-radius: 0 0 2px 2px;
-      padding: 1.5rem 2.5rem 2rem;
+      padding: 1.5rem 2rem 2rem;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-8px);
-      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
-                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
-                  visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+      transition: opacity 0.35s var(--ease-out-expo) 0.1s,
+                  transform 0.35s var(--ease-out-expo) 0.1s,
+                  visibility 0.35s var(--ease-out-expo) 0.1s;
       pointer-events: none;
     }
-
     .service-card:hover .card-expand {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
       pointer-events: auto;
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.3),
-        0 0 60px rgba(74, 144, 164, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 60px rgba(74, 144, 164, 0.08);
     }
 
-
-    /* ===========================================
-       ABOUT — with parallax image
-    =========================================== */
-    #about { padding: 10rem 5%; }
+    /* --- 10. ABOUT --- */
+    .about-section {
+      padding: 10rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
     .about-content {
       display: grid;
-      grid-template-columns: 300px 1fr;
+      grid-template-columns: 280px 1fr;
       gap: 4rem;
       align-items: start;
       margin-top: 2rem;
     }
-    .about-image { position: relative; }
+    .about-image {
+      position: relative;
+    }
     .about-headshot {
       width: 100%;
       aspect-ratio: 1;
       object-fit: cover;
       border-radius: 4px;
       filter: grayscale(100%);
-      transition: filter 0.8s ease, transform 6s ease;
-      transform: scale(1.05);
+      transition: filter 0.8s ease, transform 4s ease;
+      transform: scale(1.04);
     }
     .about-image:hover .about-headshot {
       filter: grayscale(0%);
@@ -547,23 +720,21 @@
       border-radius: 4px;
       pointer-events: none;
     }
-    /* Decorative offset frame */
     .about-image::before {
       content: '';
       position: absolute;
-      top: -12px; left: -12px;
-      right: 12px; bottom: 12px;
-      border: 1px solid rgba(74, 144, 164, 0.15);
+      top: -10px; left: -10px;
+      right: 10px; bottom: 10px;
+      border: 1px solid rgba(74, 144, 164, 0.12);
       border-radius: 4px;
       z-index: -1;
       transition: all 0.6s ease;
     }
     .about-image:hover::before {
-      top: -8px; left: -8px;
-      border-color: rgba(74, 144, 164, 0.3);
+      top: -6px; left: -6px;
+      border-color: rgba(74, 144, 164, 0.25);
     }
 
-    .about-text { text-align: left; }
     .about-text p {
       color: var(--gray);
       margin-bottom: 1.5rem;
@@ -573,16 +744,131 @@
     }
     .about-text p:last-child { margin-bottom: 0; }
 
-    /* ===========================================
-       CONTACT
-    =========================================== */
-    #contact {
-      text-align: left;
-      padding: 10rem 5%;
+    /* --- 11. FIELD NOTES PREVIEW --- */
+    .fn-preview {
+      padding: 8rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    #contact > p {
+    .fn-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .fn-card {
+      display: block;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 6px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+    }
+    .fn-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s var(--ease-out-expo);
+    }
+    .fn-card:hover {
+      border-color: rgba(74, 144, 164, 0.3);
+      box-shadow: 0 8px 30px rgba(74, 144, 164, 0.1);
+      transform: translateY(-4px);
+    }
+    .fn-card:hover::before { transform: scaleX(1); }
+
+    .fn-card-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--dark-elevated);
+    }
+    .fn-card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .fn-card:hover .fn-card-image img {
+      transform: scale(1.04);
+    }
+    .fn-card-body {
+      padding: 1.5rem;
+    }
+    .fn-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .fn-card-tag {
+      color: var(--accent);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .fn-card-date {
+      color: var(--gray-dim);
+      font-size: var(--text-sm);
+    }
+    .fn-card-title {
+      font-size: var(--text-lg);
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+      color: var(--light);
+    }
+    .fn-card-excerpt {
       color: var(--gray);
-      max-width: 500px;
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .fn-card-cta {
+      color: var(--primary);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      transition: color 0.3s;
+    }
+    .fn-card:hover .fn-card-cta { color: var(--primary-light); }
+
+    .fn-see-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 3rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s, gap 0.3s;
+    }
+    .fn-see-all:hover {
+      color: var(--primary-light);
+      gap: 0.75rem;
+    }
+
+    /* --- 12. CONTACT --- */
+    .contact-section {
+      padding: 10rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .contact-section > p {
+      color: var(--gray);
+      max-width: 480px;
       margin: 0 0 2.5rem 0;
       font-size: var(--text-base);
       font-weight: 400;
@@ -602,7 +888,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s var(--ease-out-expo);
       letter-spacing: -0.5px;
     }
     .contact-link::after {
@@ -613,7 +899,7 @@
       background: linear-gradient(90deg, var(--primary), var(--accent));
       transform: scaleX(0);
       transform-origin: right;
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s var(--ease-out-expo);
     }
     .contact-link:hover { color: var(--primary-light); }
     .contact-link:hover::after {
@@ -629,9 +915,7 @@
     }
     .contact-link:hover .contact-icon { stroke: var(--primary-light); }
 
-    /* ===========================================
-       CONTACT POPUP
-    =========================================== */
+    /* --- 13. CONTACT POPUP --- */
     .contact-overlay {
       position: fixed;
       inset: 0;
@@ -643,9 +927,7 @@
       align-items: center;
       justify-content: center;
     }
-    .contact-overlay.open {
-      display: flex;
-    }
+    .contact-overlay.open { display: flex; }
     .contact-popup {
       background: var(--dark-elevated);
       border: 1px solid var(--glass-border);
@@ -655,6 +937,7 @@
       width: 90%;
       text-align: center;
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      position: relative;
     }
     .contact-popup h3 {
       font-size: var(--text-xl);
@@ -713,16 +996,14 @@
       background: rgba(74, 144, 164, 0.1);
     }
     .popup-btn svg {
-      width: 16px;
-      height: 16px;
+      width: 16px; height: 16px;
       stroke: currentColor;
       stroke-width: 2;
       fill: none;
     }
     .popup-close {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 1rem; right: 1rem;
       background: none;
       border: none;
       color: var(--gray);
@@ -732,8 +1013,7 @@
     }
     .popup-close:hover { color: var(--light); }
     .popup-close svg {
-      width: 20px;
-      height: 20px;
+      width: 20px; height: 20px;
       stroke: currentColor;
       stroke-width: 2;
       fill: none;
@@ -747,9 +1027,7 @@
     }
     .copied-toast.show { opacity: 1; }
 
-    /* ===========================================
-       FOOTER
-    =========================================== */
+    /* --- 14. FOOTER --- */
     footer {
       padding: 3rem 5%;
       border-top: 1px solid var(--glass-border);
@@ -760,46 +1038,54 @@
       color: var(--gray-dim);
       letter-spacing: 0.5px;
     }
-
-    /* ===========================================
-       PAGE LOADER — bird outline draws in
-    =========================================== */
-    .page-loader {
-      position: fixed;
-      inset: 0;
-      background: var(--dark);
-      z-index: 10001;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s;
     }
-    .page-loader.hidden {
+    footer a:hover { color: var(--primary-light); }
+
+    /* --- 15. SCROLL REVEAL --- */
+    .reveal {
       opacity: 0;
-      visibility: hidden;
+      transform: translateY(40px);
+      transition: opacity 0.9s var(--ease-out-expo),
+                  transform 0.9s var(--ease-out-expo);
     }
-    .loader-bird {
-      width: 100px;
-      filter: brightness(0) invert(1) opacity(0.6);
-      animation: loaderPulse 1.5s ease-in-out infinite;
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
-    @keyframes loaderPulse {
-      0%, 100% { opacity: 0.3; transform: scale(0.95); }
-      50% { opacity: 0.8; transform: scale(1); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.9s var(--ease-out-expo),
+                  transform 0.9s var(--ease-out-expo);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.9s var(--ease-out-expo),
+                  transform 0.9s var(--ease-out-expo);
+    }
+    .reveal-left.active, .reveal-right.active {
+      opacity: 1;
+      transform: translateX(0);
     }
 
-    /* ===========================================
-       RESPONSIVE
-    =========================================== */
+    /* --- 16. RESPONSIVE --- */
     @media (max-width: 1024px) {
       .services-grid {
         grid-template-columns: 1fr;
         max-width: 500px;
         margin-left: auto; margin-right: auto;
       }
-      .card-teaser {
-        display: none;
-      }
+      .card-teaser { display: none; }
       .card-expand {
         position: static;
         opacity: 1;
@@ -812,11 +1098,16 @@
         transition: none;
         box-shadow: none;
       }
-      .service-card {
-        padding: 2.5rem;
+      .service-card { padding: 2.5rem; }
+      .service-card h3 { margin-bottom: 1rem; }
+      .evidence-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem 1.5rem;
       }
-      .service-card h3 {
-        margin-bottom: 1rem;
+      .fn-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin-left: auto; margin-right: auto;
       }
     }
     @media (max-width: 968px) {
@@ -837,37 +1128,50 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 3rem;
+        gap: 2.5rem;
         opacity: 0; visibility: hidden;
         transition: all 0.4s ease;
         z-index: 10000;
       }
       .nav-links.active { opacity: 1; visibility: visible; }
       .nav-links a { font-size: 1.2rem; }
-      /* Remove backdrop-filter so nav-links fixed positioning is viewport-relative */
       nav:has(.nav-links.active) {
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
         background: transparent;
         border-bottom: none;
       }
-      .hero { padding-top: 60px; }
-      .hero-logo { width: 240px; }
-      .hero h1 { font-size: var(--text-3xl); }
+      .hero { padding-top: 5rem; }
+      .hero h1 { letter-spacing: -1.5px; }
+      .belief-num { font-size: 4rem; top: 2rem; }
+      .belief { padding: 5rem 0; }
+      .evidence-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1rem; }
       footer {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
         text-align: center;
       }
-      .social-links a { margin: 0 1rem; }
       .cursor-glow { display: none; }
+      .scroll-hint { display: none; }
+    }
+    @media (max-width: 480px) {
+      .evidence-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
+
+  <!-- Background orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
   <!-- Page loader -->
   <div class="page-loader">
-    <img src="peregrine-logo.png" alt="Loading..." class="loader-bird">
+    <div class="loader-mark">
+      <img src="peregrine-logo.png" alt="">
+      <div class="loader-line"></div>
+    </div>
   </div>
 
   <!-- Cursor glow -->
@@ -877,7 +1181,7 @@
   <div class="scroll-progress"></div>
 
 
-  <!-- NAV -->
+  <!-- ========== NAVIGATION ========== -->
   <nav>
     <a href="#" class="logo">
       <img src="peregrine-logo.png" alt="Paramis">
@@ -895,33 +1199,93 @@
     </ul>
   </nav>
 
-  <!-- Particle background — full page -->
-  <canvas id="hero-canvas"></canvas>
 
   <!-- ========== HERO ========== -->
   <section class="hero">
     <div class="hero-content">
-
-      <!-- THE BIRD — floating peregrine logo -->
-      <img src="peregrine-logo.png" alt="Paramis" class="hero-logo">
-
+      <div class="hero-badge">
+        <img src="peregrine-logo.png" alt="">
+        <span>Paramis.ai</span>
+      </div>
       <h1>
-        <span class="word"><span class="word-inner">Welcome</span></span>
-        <span class="word"><span class="word-inner">to</span></span>
-        <span class="word"><span class="word-inner">Paramis.ai</span></span>
+        <span class="line"><span class="line-inner">Every knowledge worker</span></span>
+        <span class="line"><span class="line-inner">will manage <span class="accent">AI agents.</span></span></span>
       </h1>
-      <p>I prepare companies and communities for what will change.</p>
+      <p class="hero-sub">I prepare companies and communities for what will change.</p>
       <a href="#contact" class="cta-btn">Start a Conversation <span class="arrow">&rarr;</span></a>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+
+  <!-- ========== BELIEFS ========== -->
+  <section class="beliefs">
+
+    <div class="belief reveal">
+      <span class="belief-num">01</span>
+      <span class="belief-label">The Shift</span>
+      <h3>The future knowledge worker is an agent manager.</h3>
+      <p>They will not type into AI tools. They will direct AI agents to perform work, verify the output, iterate, and ship. This is fundamentally a management skill, not a technical skill. It requires the ability to delegate clearly, set quality standards, review work critically, and iterate based on gaps. This shift is not a prediction. It is underway.</p>
+    </div>
+
+    <div class="belief reveal">
+      <span class="belief-num">02</span>
+      <span class="belief-label">The Gap</span>
+      <h3>Most organizations are not preparing their people for this.</h3>
+      <p>They are running pilots without plans, training without structure, and adopting without governance. The gap between what AI can do and what their workforce is ready for grows wider every quarter. Readiness is not a product you buy. It is a capability you build.</p>
+    </div>
+
+    <div class="belief reveal">
+      <span class="belief-num">03</span>
+      <span class="belief-label">The Through-Line</span>
+      <h3>The same person who presents the roadmap also builds the first prototype.</h3>
+      <p>Readiness requires continuity from strategy to desktop. The three-year AI transformation plan, the governance framework, the nine-week training program, and the first working automation. One engagement. One person. No hand-offs, no translation loss, no strategy that never made it to the work floor.</p>
     </div>
 
   </section>
 
 
+  <!-- ========== EVIDENCE ========== -->
+  <section class="evidence">
+    <div class="evidence-grid">
+      <div class="evidence-item reveal">
+        <span class="evidence-num" data-target="375" data-prefix="$" data-suffix="K+">$0K+</span>
+        <span class="evidence-label">Measured client ROI</span>
+      </div>
+      <div class="evidence-item reveal reveal-delay-1">
+        <span class="evidence-num" data-target="39">0</span>
+        <span class="evidence-label">Grant applications. One agent team. One week.</span>
+      </div>
+      <div class="evidence-item reveal reveal-delay-2">
+        <span class="evidence-num" data-target="200" data-suffix="+">0+</span>
+        <span class="evidence-label">Users trained across engagements</span>
+      </div>
+      <div class="evidence-item reveal reveal-delay-3">
+        <span class="evidence-num" data-target="0" data-static="true">0</span>
+        <span class="evidence-label">Lines of code. One evening. A working product.</span>
+      </div>
+      <div class="evidence-item reveal reveal-delay-1">
+        <span class="evidence-num" data-target="6">0</span>
+        <span class="evidence-label">Dimensions of transformation</span>
+      </div>
+      <div class="evidence-item reveal reveal-delay-2">
+        <span class="evidence-num" data-target="9">0</span>
+        <span class="evidence-label">Weeks to delegation fluency</span>
+      </div>
+    </div>
+  </section>
+
+
   <!-- ========== SERVICES ========== -->
-  <section id="services">
-    <span class="section-title reveal">Services</span>
-    <h2 class="reveal reveal-delay-1">Advisory and Deployment</h2>
+  <section class="services-section" id="services">
+    <span class="section-label reveal">Services</span>
+    <h2 class="section-heading reveal reveal-delay-1">Advisory and Deployment</h2>
+
     <div class="services-grid">
+
       <div class="service-card reveal reveal-delay-1">
         <div class="spotlight"></div>
         <svg class="service-icon" viewBox="0 0 64 64">
@@ -929,21 +1293,18 @@
           <circle cx="32" cy="32" r="20" stroke-width="1" opacity="0.5"/>
           <circle cx="32" cy="32" r="4"/>
           <path d="M32 12 L36 32 L32 52 L28 32 Z" stroke-width="1" fill="none"/>
-          <line x1="32" y1="6" x2="32" y2="10"/>
-          <line x1="32" y1="54" x2="32" y2="58"/>
-          <line x1="6" y1="32" x2="10" y2="32"/>
-          <line x1="54" y1="32" x2="58" y2="32"/>
-          <line x1="12" y1="12" x2="15" y2="15"/>
-          <line x1="49" y1="49" x2="52" y2="52"/>
-          <line x1="52" y1="12" x2="49" y2="15"/>
-          <line x1="12" y1="52" x2="15" y2="49"/>
+          <line x1="32" y1="6" x2="32" y2="10"/><line x1="32" y1="54" x2="32" y2="58"/>
+          <line x1="6" y1="32" x2="10" y2="32"/><line x1="54" y1="32" x2="58" y2="32"/>
+          <line x1="12" y1="12" x2="15" y2="15"/><line x1="49" y1="49" x2="52" y2="52"/>
+          <line x1="52" y1="12" x2="49" y2="15"/><line x1="12" y1="52" x2="15" y2="49"/>
         </svg>
         <h3>Plan</h3>
         <p class="card-teaser">Design your AI Journey</p>
         <div class="card-expand">
-          <p>AI changes fast. I map that change across six dimensions of your business: productivity, governance, data, products, customers, and vendors. I shape a path for upskilling, safer tech adoption, and realizing benefits as you're ready. The result is a phased, multi-year roadmap to drive your decisioning and build your future capabilities.</p>
+          <p class="card-detail">AI changes fast. I map that change across six dimensions of your business: productivity, governance, data, products, customers, and vendors. I shape a path for upskilling, safer tech adoption, and realizing benefits as you're ready. The result is a phased, multi-year roadmap to drive your decisioning and build your future capabilities.</p>
         </div>
       </div>
+
       <div class="service-card reveal reveal-delay-2">
         <div class="spotlight"></div>
         <svg class="service-icon" viewBox="0 0 64 64">
@@ -963,9 +1324,10 @@
         <h3>Train</h3>
         <p class="card-teaser">Build your Agent Managers</p>
         <div class="card-expand">
-          <p>I teach your employees to become Agent Managers, through my Foundations and Advanced programs. I take knowledge workers from first interaction to delegation fluency: the ability to direct AI, verify its output, and iterate until the work is done. I also embed with teams to co-design automations, run design sprints, and help you evaluate adoption.</p>
+          <p class="card-detail">I teach your employees to become Agent Managers, through my Foundations and Advanced programs. I take knowledge workers from first interaction to delegation fluency: the ability to direct AI, verify its output, and iterate until the work is done. I also embed with teams to co-design automations, run design sprints, and help you evaluate adoption.</p>
         </div>
       </div>
+
       <div class="service-card reveal reveal-delay-3">
         <div class="spotlight"></div>
         <svg class="service-icon" viewBox="0 0 64 64">
@@ -982,9 +1344,10 @@
         <h3>Deploy</h3>
         <p class="card-teaser">Affect change at your business</p>
         <div class="card-expand">
-          <p>You're not deploying a tool. Deploying AI assistants and agents is a change management event. Static work becomes a continual learning path, and safer adoption practices create new governance needs. I build governance frameworks tailored to your industry and develop the policies you need to navigate change with your workforce, your customers, and your strategies.</p>
+          <p class="card-detail">You're not deploying a tool. Deploying AI assistants and agents is a change management event. Static work becomes a continual learning path, and safer adoption practices create new governance needs. I build governance frameworks tailored to your industry and develop the policies you need to navigate change with your workforce, your customers, and your strategies.</p>
         </div>
       </div>
+
       <div class="service-card reveal reveal-delay-1">
         <div class="spotlight"></div>
         <svg class="service-icon" viewBox="0 0 64 64">
@@ -1003,9 +1366,10 @@
         <h3>Solution</h3>
         <p class="card-teaser">Build tools for your business</p>
         <div class="card-expand">
-          <p>I design and build AI solutions for specific business problems: multi-agent workflows, automated evaluation systems, and purpose-built tools inside platforms like ChatGPT and Claude. For larger enterprises with complex infrastructure needs, I help evaluate vendors, shape solution architecture, and coordinate deployment across teams. Every solution is keyed to a discovered need and quantifiable value.</p>
+          <p class="card-detail">I design and build AI solutions for specific business problems: multi-agent workflows, automated evaluation systems, and purpose-built tools inside platforms like ChatGPT and Claude. For larger enterprises with complex infrastructure needs, I help evaluate vendors, shape solution architecture, and coordinate deployment across teams. Every solution is keyed to a discovered need and quantifiable value.</p>
         </div>
       </div>
+
       <div class="service-card reveal reveal-delay-2">
         <div class="spotlight"></div>
         <svg class="service-icon" viewBox="0 0 64 64">
@@ -1023,9 +1387,10 @@
         <h3>Inform</h3>
         <p class="card-teaser">Public speaking and group events</p>
         <div class="card-expand">
-          <p>AI is moving faster than most people can track. I stay on top of it so your audience doesn't have to. I speak to industry associations, community organizations, trade groups, and corporate teams about what is changing and what they can do about it. Conference keynotes, executive briefings, and general presentations. Tell me what you need.</p>
+          <p class="card-detail">AI is moving faster than most people can track. I stay on top of it so your audience doesn't have to. I speak to industry associations, community organizations, trade groups, and corporate teams about what is changing and what they can do about it. Conference keynotes, executive briefings, and general presentations. Tell me what you need.</p>
         </div>
       </div>
+
       <div class="service-card reveal reveal-delay-3">
         <div class="spotlight"></div>
         <svg class="service-icon" viewBox="0 0 64 64">
@@ -1044,17 +1409,18 @@
         <h3>Educate</h3>
         <p class="card-teaser">Teaching everyone how to use AI</p>
         <div class="card-expand">
-          <p>I run hands-on AI workshops for adults who want to make this technology work in their own lives. These can be multi-week programs, hackathons, or workshops built on the same concepts I deliver to corporate teams, adapted for individual learners. Participants learn to use AI safely, evaluate what they see, and build habits that will matter.</p>
+          <p class="card-detail">I run hands-on AI workshops for adults who want to make this technology work in their own lives. These can be multi-week programs, hackathons, or workshops built on the same concepts I deliver to corporate teams, adapted for individual learners. Participants learn to use AI safely, evaluate what they see, and build habits that will matter.</p>
         </div>
       </div>
+
     </div>
   </section>
 
 
   <!-- ========== ABOUT ========== -->
-  <section id="about">
-    <span class="section-title reveal">About</span>
-    <h2 class="reveal reveal-delay-1">Woody Taylor</h2>
+  <section class="about-section" id="about">
+    <span class="section-label reveal">About</span>
+    <h2 class="section-heading reveal reveal-delay-1">Woody Taylor</h2>
     <div class="about-content">
       <div class="about-image reveal-left reveal-delay-2">
         <img src="headshot.jpg" alt="Woody Taylor" class="about-headshot">
@@ -1069,10 +1435,68 @@
   </section>
 
 
+  <!-- ========== FIELD NOTES PREVIEW ========== -->
+  <section class="fn-preview">
+    <span class="section-label reveal">From the Field</span>
+    <h2 class="section-heading reveal reveal-delay-1">Recent Work</h2>
+
+    <div class="fn-grid">
+
+      <a href="field-notes/foundations.html" class="fn-card reveal reveal-delay-1">
+        <div class="fn-card-image">
+          <img src="field-notes/assets/foundations-hero.png" alt="Foundations Training" loading="lazy">
+        </div>
+        <div class="fn-card-body">
+          <div class="fn-card-meta">
+            <span class="fn-card-tag">Train</span>
+            <span class="fn-card-date">February 2026</span>
+          </div>
+          <div class="fn-card-title">Foundations Training: Where Employee Journeys Start</div>
+          <p class="fn-card-excerpt">A nine-week training system I built so the learning stays behind after the trainer leaves.</p>
+          <span class="fn-card-cta">Read &rarr;</span>
+        </div>
+      </a>
+
+      <a href="field-notes/ideashelf.html" class="fn-card reveal reveal-delay-2">
+        <div class="fn-card-image">
+          <img src="field-notes/assets/ideashelf-product.png" alt="IdeaShelf" loading="lazy">
+        </div>
+        <div class="fn-card-body">
+          <div class="fn-card-meta">
+            <span class="fn-card-tag">Build</span>
+            <span class="fn-card-date">February 2026</span>
+          </div>
+          <div class="fn-card-title">IdeaShelf: A Fast Build Using Adversarial Orchestration</div>
+          <p class="fn-card-excerpt">A Chrome extension built, reviewed, and deployed in one evening. Without writing a line of code.</p>
+          <span class="fn-card-cta">Read &rarr;</span>
+        </div>
+      </a>
+
+      <a href="field-notes/ea-summit.html" class="fn-card reveal reveal-delay-3">
+        <div class="fn-card-image">
+          <img src="field-notes/assets/ea-summit-hero.png" alt="EA Summit Keynote" loading="lazy">
+        </div>
+        <div class="fn-card-body">
+          <div class="fn-card-meta">
+            <span class="fn-card-tag">Talk</span>
+            <span class="fn-card-date">January 2026</span>
+          </div>
+          <div class="fn-card-title">An Overview of Generative AI for the Electrical Industry</div>
+          <p class="fn-card-excerpt">A keynote breaking down AI for the people building Minnesota's infrastructure.</p>
+          <span class="fn-card-cta">Read &rarr;</span>
+        </div>
+      </a>
+
+    </div>
+
+    <a href="field-notes.html" class="fn-see-all reveal">View All Field Notes <span>&rarr;</span></a>
+  </section>
+
+
   <!-- ========== CONTACT ========== -->
-  <section id="contact">
-    <span class="section-title reveal">Contact</span>
-    <h2 class="reveal reveal-delay-1">Let's Talk</h2>
+  <section class="contact-section" id="contact">
+    <span class="section-label reveal">Contact</span>
+    <h2 class="section-heading reveal reveal-delay-1">Let's Talk</h2>
     <p class="reveal reveal-delay-2">Ready to start your AI journey? Reach out and let's discuss how I can help transform your organization.</p>
     <div class="contact-links reveal reveal-delay-3">
       <a href="mailto:contact@paramis.ai?subject=Website%20Inquiry" class="contact-link contact-btn">
@@ -1094,9 +1518,10 @@
     </div>
   </section>
 
+
   <!-- Contact Popup -->
   <div class="contact-overlay" id="contactOverlay">
-    <div class="contact-popup" style="position:relative;">
+    <div class="contact-popup">
       <button class="popup-close" id="popupClose">
         <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -1117,10 +1542,15 @@
     </div>
   </div>
 
+
+  <!-- ========== FOOTER ========== -->
   <footer>
-    <span>&copy; 2025 Paramis LLC. All rights reserved.</span>
+    <span>&copy; 2026 Paramis LLC. All rights reserved.</span>
+    <a href="mailto:contact@paramis.ai">contact@paramis.ai</a>
   </footer>
 
+
+  <!-- ========== SCRIPTS ========== -->
   <script>
     // ==========================================
     // FORCE SCROLL TO TOP ON LOAD
@@ -1138,11 +1568,37 @@
       setTimeout(() => {
         document.querySelector('.page-loader').classList.add('hidden');
         startHeroAnimation();
-      }, 800);
+      }, 1000);
     });
 
     // ==========================================
-    // CURSOR GLOW
+    // HERO ANIMATION — staged reveal
+    // ==========================================
+    function startHeroAnimation() {
+      const lines = document.querySelectorAll('.hero h1 .line-inner');
+      const sub = document.querySelector('.hero-sub');
+      const cta = document.querySelector('.cta-btn');
+
+      // Reveal headline lines with stagger
+      lines.forEach((line, i) => {
+        setTimeout(() => {
+          line.classList.add('revealed');
+        }, 200 + i * 150);
+      });
+
+      // Reveal subtitle
+      setTimeout(() => {
+        sub.classList.add('revealed');
+      }, 800);
+
+      // Reveal CTA
+      setTimeout(() => {
+        cta.classList.add('revealed');
+      }, 1100);
+    }
+
+    // ==========================================
+    // CURSOR GLOW — smooth follow
     // ==========================================
     const cursorGlow = document.querySelector('.cursor-glow');
     let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
@@ -1153,42 +1609,14 @@
     });
 
     function animateCursor() {
-      glowX += (mouseX - glowX) * 0.08;
-      glowY += (mouseY - glowY) * 0.08;
+      glowX += (mouseX - glowX) * 0.06;
+      glowY += (mouseY - glowY) * 0.06;
       cursorGlow.style.left = glowX + 'px';
       cursorGlow.style.top = glowY + 'px';
       requestAnimationFrame(animateCursor);
     }
     if (!('ontouchstart' in window)) animateCursor();
     else cursorGlow.style.display = 'none';
-
-    // ==========================================
-    // HERO WORD-BY-WORD ANIMATION
-    // ==========================================
-    function startHeroAnimation() {
-      const words = document.querySelectorAll('.hero h1 .word-inner');
-      const subtitle = document.querySelector('.hero p');
-      const cta = document.querySelector('.cta-btn');
-
-      words.forEach((word, i) => {
-        setTimeout(() => {
-          word.style.transition = 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-          word.style.transform = 'translateY(0)';
-        }, 300 + i * 120);
-      });
-
-      setTimeout(() => {
-        subtitle.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        subtitle.style.opacity = '1';
-        subtitle.style.transform = 'translateY(0)';
-      }, 1100);
-
-      setTimeout(() => {
-        cta.style.transition = 'opacity 0.8s ease, transform 0.8s ease, background 0.4s, border-color 0.4s, box-shadow 0.4s, letter-spacing 0.4s';
-        cta.style.opacity = '1';
-        cta.style.transform = 'translateY(0)';
-      }, 1400);
-    }
 
     // ==========================================
     // SCROLL PROGRESS BAR
@@ -1235,9 +1663,54 @@
           entry.target.classList.add('active');
         }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
 
     revealEls.forEach(el => revealObserver.observe(el));
+
+    // ==========================================
+    // EVIDENCE COUNTER ANIMATION
+    // ==========================================
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const isStatic = el.dataset.static === 'true';
+
+      // The "0 lines of code" item should just show 0
+      if (isStatic || target === 0) {
+        el.textContent = prefix + '0' + suffix;
+        return;
+      }
+
+      const duration = 2000;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out quart for satisfying deceleration
+        const eased = 1 - Math.pow(1 - progress, 4);
+        const current = Math.round(eased * target);
+        el.textContent = prefix + current + suffix;
+
+        if (progress < 1) requestAnimationFrame(update);
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // Trigger counter when evidence items enter viewport
+    const evidenceNums = document.querySelectorAll('.evidence-num');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    evidenceNums.forEach(el => counterObserver.observe(el));
 
     // ==========================================
     // SERVICE CARD — spotlight + 3D tilt
@@ -1253,12 +1726,12 @@
         const py = (y / rect.height);
 
         // 3D tilt
-        const tiltX = (py - 0.5) * 10;
-        const tiltY = (px - 0.5) * -10;
+        const tiltX = (py - 0.5) * 8;
+        const tiltY = (px - 0.5) * -8;
         card.style.transform = `translateY(-8px) perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
 
         // Spotlight follows cursor
-        spotlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(74,144,164,0.12) 0%, transparent 60%)`;
+        spotlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(74,144,164,0.10) 0%, transparent 60%)`;
       });
 
       card.addEventListener('mouseleave', () => {
@@ -1269,89 +1742,6 @@
     });
 
     // ==========================================
-    // HERO CANVAS — flowing particles (same as current site)
-    // ==========================================
-    const canvas = document.getElementById('hero-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let animationId;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    class Particle {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.opacity = Math.random() * 0.5 + 0.2;
-        this.color = Math.random() > 0.7 ? '#F5A623' : '#4A90A4';
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.globalAlpha = this.opacity;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-    }
-
-    function initParticles() {
-      particles = [];
-      const count = Math.min(80, Math.floor(canvas.width * canvas.height / 15000));
-      for (let i = 0; i < count; i++) particles.push(new Particle());
-    }
-
-    function connectParticles() {
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = '#4A90A4';
-            ctx.globalAlpha = 0.1 * (1 - dist / 150);
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-            ctx.globalAlpha = 1;
-          }
-        }
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => { p.update(); p.draw(); });
-      connectParticles();
-      animationId = requestAnimationFrame(animateParticles);
-    }
-
-    resizeCanvas();
-    initParticles();
-    animateParticles();
-
-    window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) cancelAnimationFrame(animationId);
-      else animateParticles();
-    });
-
-    // ==========================================
     // CONTACT POPUP
     // ==========================================
     const contactOverlay = document.getElementById('contactOverlay');
@@ -1359,7 +1749,6 @@
     const copyEmailBtn = document.getElementById('copyEmailBtn');
     const copiedToast = document.getElementById('copiedToast');
 
-    // Open popup when "Send a Message" is clicked
     function openContactPopup() {
       contactOverlay.classList.add('open');
     }
@@ -1372,7 +1761,6 @@
       openContactPopup();
     });
 
-    // Close popup
     popupClose.addEventListener('click', closeContactPopup);
     contactOverlay.addEventListener('click', (e) => {
       if (e.target === contactOverlay) closeContactPopup();
@@ -1381,7 +1769,6 @@
       if (e.key === 'Escape') closeContactPopup();
     });
 
-    // Copy email to clipboard
     copyEmailBtn.addEventListener('click', () => {
       navigator.clipboard.writeText('contact@paramis.ai').then(() => {
         copiedToast.classList.add('show');
@@ -1389,5 +1776,6 @@
       });
     });
   </script>
+
 </body>
 </html>
