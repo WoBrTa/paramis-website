@@ -404,18 +404,19 @@
       margin-top: 3rem;
     }
     .service-card {
-      padding: 2.5rem;
+      padding: 2.5rem 2.5rem 2rem;
       background: var(--glass);
       border: 1px solid var(--glass-border);
       border-radius: 2px;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       will-change: transform;
+      z-index: 1;
     }
     .service-card::before {
       content: '';
@@ -429,8 +430,10 @@
     }
     .service-card:hover::before { transform: scaleX(1); }
     .service-card:hover {
+      z-index: 10;
       background: rgba(255, 255, 255, 0.05);
       border-color: rgba(74, 144, 164, 0.3);
+      border-bottom-color: transparent;
       box-shadow:
         0 20px 40px rgba(0, 0, 0, 0.3),
         0 0 60px rgba(74, 144, 164, 0.1);
@@ -461,10 +464,16 @@
     }
     .service-card h3 {
       font-size: var(--text-xl);
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       font-weight: 600;
       color: var(--light);
       letter-spacing: -0.5px;
+    }
+    .service-card .card-teaser {
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      text-align: center;
+      margin: 0;
     }
     .service-card p {
       color: var(--gray);
@@ -473,6 +482,37 @@
       text-align: left;
       font-weight: 400;
     }
+
+    /* --- Expandable card overlay --- */
+    .card-expand {
+      position: absolute;
+      top: 100%;
+      left: -1px;
+      right: -1px;
+      background: #141414;
+      border: 1px solid rgba(74, 144, 164, 0.3);
+      border-top: none;
+      border-radius: 0 0 2px 2px;
+      padding: 1.5rem 2.5rem 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+                  visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+      pointer-events: none;
+    }
+
+    .service-card:hover .card-expand {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 60px rgba(74, 144, 164, 0.1);
+    }
+
 
     /* ===========================================
        ABOUT — with parallax image
@@ -757,6 +797,27 @@
         max-width: 500px;
         margin-left: auto; margin-right: auto;
       }
+      .card-teaser {
+        display: none;
+      }
+      .card-expand {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: none;
+        border: none;
+        padding: 1rem 0 0;
+        pointer-events: auto;
+        transition: none;
+        box-shadow: none;
+      }
+      .service-card {
+        padding: 2.5rem;
+      }
+      .service-card h3 {
+        margin-bottom: 1rem;
+      }
     }
     @media (max-width: 968px) {
       .about-content {
@@ -877,8 +938,11 @@
           <line x1="52" y1="12" x2="49" y2="15"/>
           <line x1="12" y1="52" x2="15" y2="49"/>
         </svg>
-        <h3>AI Journey Planning</h3>
-        <p>AI changes fast. I map that change across six dimensions of your business: productivity, governance, data, products, customers, and vendors. I shape a path for upskilling, safer tech adoption, and realizing benefits as you're ready. The result is a phased, multi-year roadmap to drive your decisioning and build your future capabilities.</p>
+        <h3>Plan</h3>
+        <p class="card-teaser">Design your AI Journey</p>
+        <div class="card-expand">
+          <p>AI changes fast. I map that change across six dimensions of your business: productivity, governance, data, products, customers, and vendors. I shape a path for upskilling, safer tech adoption, and realizing benefits as you're ready. The result is a phased, multi-year roadmap to drive your decisioning and build your future capabilities.</p>
+        </div>
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="spotlight"></div>
@@ -896,8 +960,11 @@
           <circle cx="8" cy="26" r="2"/><circle cx="8" cy="38" r="2"/>
           <circle cx="56" cy="26" r="2"/><circle cx="56" cy="38" r="2"/>
         </svg>
-        <h3>Training and Capability Building</h3>
-        <p>I teach your employees to become Agent Managers, through my Foundations and Advanced programs. I take knowledge workers from first interaction to delegation fluency: the ability to direct AI, verify its output, and iterate until the work is done. I also embed with teams to co-design automations, run design sprints, and help you evaluate adoption.</p>
+        <h3>Train</h3>
+        <p class="card-teaser">Build your Agent Managers</p>
+        <div class="card-expand">
+          <p>I teach your employees to become Agent Managers, through my Foundations and Advanced programs. I take knowledge workers from first interaction to delegation fluency: the ability to direct AI, verify its output, and iterate until the work is done. I also embed with teams to co-design automations, run design sprints, and help you evaluate adoption.</p>
+        </div>
       </div>
       <div class="service-card reveal reveal-delay-3">
         <div class="spotlight"></div>
@@ -912,8 +979,11 @@
           <path d="M42 20 Q46 14 50 18" fill="none" stroke-dasharray="2,2"/>
           <path d="M32 4 L28 10 M32 4 L36 10" stroke-width="2"/>
         </svg>
-        <h3>Governance and Change Management</h3>
-        <p>You're not deploying a tool. Deploying AI assistants and agents is a change management event. Static work becomes a continual learning path, and safer adoption practices create new governance needs. I build governance frameworks tailored to your industry and develop the policies you need to navigate change with your workforce, your customers, and your strategies.</p>
+        <h3>Deploy</h3>
+        <p class="card-teaser">Affect change at your business</p>
+        <div class="card-expand">
+          <p>You're not deploying a tool. Deploying AI assistants and agents is a change management event. Static work becomes a continual learning path, and safer adoption practices create new governance needs. I build governance frameworks tailored to your industry and develop the policies you need to navigate change with your workforce, your customers, and your strategies.</p>
+        </div>
       </div>
       <div class="service-card reveal reveal-delay-1">
         <div class="spotlight"></div>
@@ -930,8 +1000,11 @@
           <line x1="32" y1="50" x2="32" y2="56" stroke-width="1"/>
           <line x1="24" y1="50" x2="40" y2="50" stroke-width="1.5"/>
         </svg>
-        <h3>Solution Development</h3>
-        <p>I design and build AI solutions for specific business problems: multi-agent workflows, automated evaluation systems, and purpose-built tools inside platforms like ChatGPT and Claude. For larger enterprises with complex infrastructure needs, I help evaluate vendors, shape solution architecture, and coordinate deployment across teams. Every solution is keyed to a discovered need and quantifiable value.</p>
+        <h3>Solution</h3>
+        <p class="card-teaser">Build tools for your business</p>
+        <div class="card-expand">
+          <p>I design and build AI solutions for specific business problems: multi-agent workflows, automated evaluation systems, and purpose-built tools inside platforms like ChatGPT and Claude. For larger enterprises with complex infrastructure needs, I help evaluate vendors, shape solution architecture, and coordinate deployment across teams. Every solution is keyed to a discovered need and quantifiable value.</p>
+        </div>
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="spotlight"></div>
@@ -947,8 +1020,11 @@
           <circle cx="8" cy="26" r="2" opacity="0.4"/>
           <circle cx="56" cy="26" r="2" opacity="0.4"/>
         </svg>
-        <h3>Public Speaking</h3>
-        <p>AI is moving faster than most people can track. I stay on top of it so your audience doesn't have to. I speak to industry associations, community organizations, trade groups, and corporate teams about what is changing and what they can do about it. Conference keynotes, executive briefings, and general presentations. Tell me what you need.</p>
+        <h3>Inform</h3>
+        <p class="card-teaser">Public speaking and group events</p>
+        <div class="card-expand">
+          <p>AI is moving faster than most people can track. I stay on top of it so your audience doesn't have to. I speak to industry associations, community organizations, trade groups, and corporate teams about what is changing and what they can do about it. Conference keynotes, executive briefings, and general presentations. Tell me what you need.</p>
+        </div>
       </div>
       <div class="service-card reveal reveal-delay-3">
         <div class="spotlight"></div>
@@ -965,8 +1041,11 @@
           <line x1="44" y1="40" x2="38" y2="42" stroke-width="1" opacity="0.4"/>
           <path d="M28 54 L22 58 L32 62 L42 58 L36 54" stroke-width="1.5" fill="none"/>
         </svg>
-        <h3>Community Workshops</h3>
-        <p>I run hands-on AI workshops for adults who want to make this technology work in their own lives. These can be multi-week programs, hackathons, or workshops built on the same concepts I deliver to corporate teams, adapted for individual learners. Participants learn to use AI safely, evaluate what they see, and build habits that will matter.</p>
+        <h3>Educate</h3>
+        <p class="card-teaser">Teaching everyone how to use AI</p>
+        <div class="card-expand">
+          <p>I run hands-on AI workshops for adults who want to make this technology work in their own lives. These can be multi-week programs, hackathons, or workshops built on the same concepts I deliver to corporate teams, adapted for individual learners. Participants learn to use AI safely, evaluate what they see, and build habits that will matter.</p>
+        </div>
       </div>
     </div>
   </section>
